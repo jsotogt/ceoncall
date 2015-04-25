@@ -13,7 +13,7 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'simplerest'
+    baseName = 'hackathon_ceoncall'
     version =  '0.1.0'
 }
 
@@ -26,6 +26,10 @@ targetCompatibility = 1.7
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework:spring-orm")
+    compile("org.hibernate:hibernate-core:4.3.5.Final")
+    compile("org.hibernate:hibernate-entitymanager:4.3.5.Final")
+    runtime("mysql:mysql-connector-java:5.1.30")
     testCompile("junit:junit")
 }
 
