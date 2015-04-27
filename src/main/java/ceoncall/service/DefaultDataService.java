@@ -1,6 +1,7 @@
 package ceoncall.service;
 
 import ceoncall.domain.Department;
+import ceoncall.domain.Team;
 import ceoncall.domain.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,19 +14,24 @@ import javax.persistence.PersistenceContext;
 public class DefaultDataService {
 
     @Autowired
-    TeamMemberService teamMemberService;
+    DepartmentService departmentService;
 
     @Autowired
-    DepartmentService departmentService;
+    TeamService teamService;
+
+    @Autowired
+    TeamMemberService teamMemberService;
 
     @PostConstruct
     public void init() {
 
-        if (!teamMemberService.findAll().isEmpty()) {
+        if (!departmentService.findAll().isEmpty()) {
             return;
         }
 
         createDepartments();
+
+        createTeams();
 
         createTeamMembers();
 
@@ -40,7 +46,6 @@ public class DefaultDataService {
 
         TeamMember jorge = new TeamMember("Jimmy Wong", "M: +1 (407) 443-5990", "jimmy.wong@accesso.com");
         teamMemberService.save(jorge);
-
     }
 
     public void createDepartments() {
@@ -52,6 +57,23 @@ public class DefaultDataService {
 
         Department it = new Department("IT");
         departmentService.save(it);
+    }
+
+    public void createTeams() {
+        Team backend = new Team("Backend");
+        teamService.save(backend);
+
+        Team v4 = new Team("Client UI (V4)");
+        teamService.save(v4);
+
+        Team v5 = new Team("Client UI (V5)");
+        teamService.save(v5);
+
+        Team sixflags = new Team("Sixflags");
+        teamService.save(sixflags);
+
+        Team cedar = new Team("Cedar Fair");
+        teamService.save(cedar);
     }
 
 }
