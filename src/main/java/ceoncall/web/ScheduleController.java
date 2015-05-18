@@ -5,6 +5,7 @@ import ceoncall.domain.Schedule;
 import ceoncall.domain.Team;
 import ceoncall.domain.TeamMember;
 import ceoncall.service.DepartmentService;
+import ceoncall.service.ScheduleService;
 import ceoncall.service.TeamMemberService;
 import ceoncall.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,42 +24,16 @@ import java.util.List;
 @RestController
 public class ScheduleController {
 
-    @PersistenceContext
-    EntityManager em;
-
     @Autowired
-    TeamService teamService;
-
-    @Autowired
-    DepartmentService departmentService;
-
-    @Autowired
-    TeamMemberService teamMemberService;
+    ScheduleService scheduleService;
 
     @RequestMapping(value="/scheduletest", method= RequestMethod.POST)
-    @Transactional
     public Schedule createOne()
     {
-        Team team = teamService.findAll().get(0);
 
-        Department department = departmentService.findAll().get(0);
+        Schedule schedule = scheduleService.createOne();
 
-        TeamMember teamMember = teamMemberService.findAll().get(0);
+        return scheduleService.toJson(schedule);
 
-        List<TeamMember> oncall = new ArrayList<>();
-        oncall.add(teamMember);
-
-        Schedule schedule = new Schedule();
-        schedule.setStartDate(new Date());
-        schedule.setEndDate(new Date());
-        schedule.setTeam(team);
-        schedule.setDepartment(department);
-        schedule.setTeamMemberList(oncall);
-
-        teamMember.getScheduleList().add(schedule);
-
-        em.persist(schedule);
-
-        return schedule;
     }
 }
