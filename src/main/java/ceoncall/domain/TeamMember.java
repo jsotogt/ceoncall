@@ -1,12 +1,14 @@
 package ceoncall.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class TeamMember
 {
 	@Id
@@ -16,6 +18,7 @@ public class TeamMember
 	private String phone;
 	private String email;
 	@ManyToMany
+	@JoinTable
 	private List<Schedule> scheduleList;
 	
 	public TeamMember() {}
