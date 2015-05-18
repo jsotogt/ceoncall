@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class TeamMember
 {
 	@Id
