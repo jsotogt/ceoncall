@@ -49,7 +49,9 @@ public class TeamMemberController
   @RequestMapping(value="/teammember/{id}", method=RequestMethod.GET)
 	public TeamMember get(@PathVariable("id") int id)
 	{
-  	return teamMemberService.findById(id);
+		TeamMember t = teamMemberService.findById(id);
+
+		return teamMemberService.toJson(t);
 	}
   
   @RequestMapping(value="/teammember/{id}", method=RequestMethod.DELETE)
