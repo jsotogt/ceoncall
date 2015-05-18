@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import ceoncall.domain.Schedule;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,5 +46,16 @@ public class TeamMemberService
 	public void delete(TeamMember t)
 	{
 		em.remove(t);
+	}
+
+	@Transactional(readOnly = true)
+	public TeamMember toJson(TeamMember t) {
+
+		for ( Schedule s : t.getScheduleList()) {
+			s.setTeamMemberList(null);
+		}
+
+		return t;
+
 	}
 }
