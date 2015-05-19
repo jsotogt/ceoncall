@@ -30,17 +30,6 @@ public class ScheduleService {
     @Autowired
     TeamMemberService teamMemberService;
 
-    @Transactional(readOnly = true)
-    public Schedule toJson(Schedule s) {
-
-        for( TeamMember t : s.getTeamMemberList()) {
-            t.setScheduleList(null);
-        }
-
-        return s;
-
-    }
-
     public Schedule createOne()
     {
         Team team = teamService.findAll().get(0);

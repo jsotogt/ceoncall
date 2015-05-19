@@ -31,9 +31,13 @@ public class ScheduleController {
     public Schedule createOne()
     {
 
-        Schedule schedule = scheduleService.createOne();
+        Schedule s = scheduleService.createOne();
 
-        return scheduleService.toJson(schedule);
+        for( TeamMember t : s.getTeamMemberList()) {
+            t.setScheduleList(null);
+        }
+
+        return s;
 
     }
 }
