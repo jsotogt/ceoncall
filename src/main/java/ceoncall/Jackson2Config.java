@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 public class Jackson2Config {
 
     @Bean
-    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+    public ObjectMapper jacksonObjectMapper() {
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -23,10 +23,8 @@ public class Jackson2Config {
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.setDateFormat(df);
 
-        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
-        jsonConverter.setObjectMapper(objectMapper);
-
-        return jsonConverter;
+        return objectMapper;
 
     }
+
 }
