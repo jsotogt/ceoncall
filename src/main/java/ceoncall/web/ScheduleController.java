@@ -9,9 +9,7 @@ import ceoncall.service.ScheduleService;
 import ceoncall.service.TeamMemberService;
 import ceoncall.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,17 +25,36 @@ public class ScheduleController {
     @Autowired
     ScheduleService scheduleService;
 
-    @RequestMapping(value="/scheduletest", method= RequestMethod.POST)
-    public Schedule createOne()
+    @RequestMapping(value="/schedule", method=RequestMethod.POST)
+    public Schedule create(@RequestBody Schedule s)
     {
+        scheduleService.save(s);
 
-        Schedule s = scheduleService.createOne();
+        return s;
+    }
+
+    @RequestMapping(value="/schedule/{id}", method=RequestMethod.GET)
+    public Schedule get(@PathVariable("id") int id)
+    {
+        Schedule s = scheduleService.findById(id);
 
         for( TeamMember t : s.getTeamMemberList()) {
             t.setScheduleList(null);
         }
 
         return s;
-
     }
+
+    @RequestMapping(value="/schedule/{id}", method=RequestMethod.DELETE)
+    public Schedule delete(@PathVariable("id") int id)
+    {
+        Schedule s = scheduleService.findById(id);
+        if (s == null)
+            return s;
+
+        scheduleService.delete(s);
+
+        return s;
+    }
+
 }

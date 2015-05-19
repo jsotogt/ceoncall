@@ -30,31 +30,24 @@ public class ScheduleService {
     @Autowired
     TeamMemberService teamMemberService;
 
-    public Schedule createOne()
+    public void save(Schedule s)
     {
-        Team team = teamService.findAll().get(0);
-
-        Department department = departmentService.findAll().get(0);
-
-        TeamMember jaime = teamMemberService.findAll().get(0);
-        TeamMember jorge = teamMemberService.findAll().get(1);
-
-        List<TeamMember> oncall = new ArrayList<>();
-        oncall.add(jaime);
-        oncall.add(jorge);
-
-        Schedule schedule = new Schedule();
-        schedule.setStartDate(new Date());
-        schedule.setEndDate(new Date());
-        schedule.setTeam(team);
-        schedule.setDepartment(department);
-        schedule.setTeamMemberList(oncall);
-
-        jaime.getScheduleList().add(schedule);
-        jorge.getScheduleList().add(schedule);
-
-        em.persist(schedule);
-
-        return schedule;
+        em.persist(s);
     }
+
+    public Schedule update(Schedule s)
+    {
+        return em.merge(s);
+    }
+
+    public void delete(Schedule s)
+    {
+        em.remove(s);
+    }
+
+    public Schedule findById(int id)
+    {
+        return em.find(Schedule.class, id);
+    }
+
 }
