@@ -47,15 +47,5 @@ public class TeamMemberService
 	{
 		em.remove(t);
 	}
-
-	@Transactional(readOnly = true)
-	public TeamMember toJson(TeamMember t) {
-
-		for ( Schedule s : t.getScheduleList()) {
-			s.setTeamMemberList(null);
-		}
-
-		return t;
-
-	}
+	
 }

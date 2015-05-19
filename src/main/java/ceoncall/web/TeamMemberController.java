@@ -2,6 +2,7 @@ package ceoncall.web;
 
 import java.util.List;
 
+import ceoncall.domain.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,8 +52,12 @@ public class TeamMemberController
   	t.setId(id);
 
 		TeamMember tNew = teamMemberService.update(t);
+
+		for ( Schedule s : tNew.getScheduleList()) {
+			s.setTeamMemberList(null);
+		}
 		
-  	return teamMemberService.toJson(tNew);
+  	return tNew;
 	}
   
   @RequestMapping(value="/teammember/{id}", method=RequestMethod.GET)
@@ -60,7 +65,11 @@ public class TeamMemberController
 	{
 		TeamMember t = teamMemberService.findById(id);
 
-		return teamMemberService.toJson(t);
+		for ( Schedule s : t.getScheduleList()) {
+			s.setTeamMemberList(null);
+		}
+
+		return t;
 	}
   
   @RequestMapping(value="/teammember/{id}", method=RequestMethod.DELETE)
