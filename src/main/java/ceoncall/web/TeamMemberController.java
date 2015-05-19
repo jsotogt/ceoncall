@@ -22,7 +22,14 @@ public class TeamMemberController
   @RequestMapping("/teammembers")
 	public List<TeamMember> getAll()
 	{
-  	return teamMemberService.findAll();
+
+		List<TeamMember> list = teamMemberService.findAll();
+
+		for(TeamMember t : list) {
+			t.setScheduleList(null);
+		}
+
+		return list;
 	}
   
   @RequestMapping(value="/teammember", method=RequestMethod.POST)
