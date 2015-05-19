@@ -49,8 +49,10 @@ public class TeamMemberController
   		return tOld;
   	
   	t.setId(id);
+
+		TeamMember tNew = teamMemberService.update(t);
 		
-  	return teamMemberService.update(t);
+  	return teamMemberService.toJson(tNew);
 	}
   
   @RequestMapping(value="/teammember/{id}", method=RequestMethod.GET)
