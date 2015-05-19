@@ -16,8 +16,7 @@ public class TeamMember
 	private String name;
 	private String phone;
 	private String email;
-	@ManyToMany
-	@JoinTable
+	@ManyToMany(mappedBy = "teamMemberList")
 	private List<Schedule> scheduleList;
 	
 	public TeamMember() {}

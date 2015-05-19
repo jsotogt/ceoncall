@@ -17,7 +17,8 @@ public class Schedule {
     private Department department;
     @ManyToOne
     private Team team;
-    @ManyToMany(mappedBy = "scheduleList")
+    @ManyToMany
+    @JoinTable
     private List<TeamMember> teamMemberList;
     private Date startDate;
     private Date endDate;
