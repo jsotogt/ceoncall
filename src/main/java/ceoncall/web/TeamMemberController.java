@@ -4,6 +4,8 @@ import java.util.List;
 
 import ceoncall.domain.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,35 +34,8 @@ public class TeamMemberController
 
 		return list;
 	}
-  
-  @RequestMapping(value="/teammember", method=RequestMethod.POST)
-	public TeamMember create(@RequestBody TeamMember t)
-	{
-  	teamMemberService.save(t);
-  	
-  	return t;
-	}
-  
-  @RequestMapping(value="/teammember/{id}", method=RequestMethod.PUT)
-	public TeamMember update(@PathVariable("id") int id, @RequestBody TeamMember t)
-	{
-  	TeamMember tOld = teamMemberService.findById(id);
-  	
-  	if (tOld == null)
-  		return tOld;
-  	
-  	t.setId(id);
 
-		TeamMember tNew = teamMemberService.update(t);
-
-		for ( Schedule s : tNew.getScheduleList()) {
-			s.setTeamMemberList(null);
-		}
-		
-  	return tNew;
-	}
-  
-  @RequestMapping(value="/teammember/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/teammember/{id}", method=RequestMethod.GET)
 	public TeamMember get(@PathVariable("id") int id)
 	{
 		TeamMember t = teamMemberService.findById(id);
@@ -72,15 +47,38 @@ public class TeamMemberController
 		return t;
 	}
   
-  @RequestMapping(value="/teammember/{id}", method=RequestMethod.DELETE)
-	public TeamMember delete(@PathVariable("id") int id)
+  @RequestMapping(value="/teammember", method=RequestMethod.POST)
+	public ResponseEntity<String> create(@RequestBody TeamMember t)
 	{
+  	teamMemberService.save(t);
+  	
+  	return new ResponseEntity<String>(HttpStatus.OK);
+	}
+  
+  @RequestMapping(value="/teammember/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<String> update(@PathVariable("id") int id, @RequestBody TeamMember t)
+	{
+  		TeamMember tOld = teamMemberService.findById(id);
+  	
+  		if (tOld == null)
+  			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+  	
+  		t.setId(id);
+
+		TeamMember tNew = teamMemberService.update(t);
+		
+  		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+  
+  @RequestMapping(value="/teammember/{id}", method=RequestMethod.DELETE)
+  public ResponseEntity<String> delete(@PathVariable("id") int id)
+  {
   	TeamMember t = teamMemberService.findById(id);
   	if (t == null)
-  		return t;
+  		return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
   	
   	teamMemberService.delete(t);
   	
-  	return t;
-	}
+  	return new ResponseEntity<String>(HttpStatus.OK);
+  }
 }
