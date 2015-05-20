@@ -33,6 +33,25 @@ public class ScheduleController {
         return s;
     }
 
+    @RequestMapping(value="/schedule/{id}", method=RequestMethod.PUT)
+    public Schedule update(@PathVariable("id") int id, @RequestBody Schedule s)
+    {
+        Schedule sold = scheduleService.findById(id);
+
+        if(sold == null)
+            return sold;
+
+        s.setId(id);
+
+        s = scheduleService.update(s);
+
+        for( TeamMember t : s.getTeamMemberList()) {
+            t.setScheduleList(null);
+        }
+
+        return s;
+    }
+
     @RequestMapping(value="/schedule/{id}", method=RequestMethod.GET)
     public Schedule get(@PathVariable("id") int id)
     {
