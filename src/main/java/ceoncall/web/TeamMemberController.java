@@ -1,5 +1,6 @@
 package ceoncall.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ceoncall.domain.Schedule;
@@ -21,8 +22,21 @@ public class TeamMemberController
 
 	@Autowired
 	private TeamMemberService teamMemberService;
+
+    @RequestMapping("/teammember/name")
+	public List<String> getAllNames() {
+
+        List<String> names = new ArrayList<>();
+
+        for(TeamMember t : teamMemberService.findAll()) {
+            names.add(t.getName());
+        }
+
+        return names;
+
+    }
 	
-  @RequestMapping("/teammembers")
+    @RequestMapping("/teammembers")
 	public List<TeamMember> getAll()
 	{
 
