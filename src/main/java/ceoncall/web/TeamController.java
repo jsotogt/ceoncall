@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,6 +20,19 @@ public class TeamController {
     public List<Team> getAll()
     {
         return teamService.findAll();
+    }
+
+    @RequestMapping("/team/name")
+    public List<String> getAllNames() {
+
+        List<String> names = new ArrayList<>();
+
+        for(Team t : teamService.findAll()) {
+            names.add(t.getName());
+        }
+
+        return names;
+
     }
 
     @RequestMapping(value="/team/{id}", method=RequestMethod.GET)
