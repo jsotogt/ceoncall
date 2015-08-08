@@ -29,6 +29,7 @@ dependencies {
     compile("org.springframework:spring-orm")
     compile("org.hibernate:hibernate-core:4.3.5.Final")
     compile("org.hibernate:hibernate-entitymanager:4.3.5.Final")
+    compile('com.twilio.sdk:twilio-java-sdk:4.4.5')
     runtime("com.h2database:h2:1.4.187")
     testCompile("junit:junit")
 }

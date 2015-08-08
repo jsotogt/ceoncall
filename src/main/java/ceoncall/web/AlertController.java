@@ -24,6 +24,8 @@ public class AlertController {
 
         alertService.email(alert);
 
+        alertService.sendSMS(alert);
+
         return new ResponseEntity(HttpStatus.OK);
 
     }
