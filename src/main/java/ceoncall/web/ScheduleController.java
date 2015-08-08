@@ -1,77 +1,86 @@
 package ceoncall.web;
 
-import ceoncall.domain.Department;
-import ceoncall.domain.Schedule;
-import ceoncall.domain.Team;
-import ceoncall.domain.TeamMember;
-import ceoncall.service.DepartmentService;
-import ceoncall.service.ScheduleService;
-import ceoncall.service.TeamMemberService;
-import ceoncall.service.TeamService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import ceoncall.domain.Schedule;
+import ceoncall.domain.TeamMember;
+import ceoncall.service.ScheduleService;
 
 @RestController
-public class ScheduleController {
+public class ScheduleController
+{
 
-    @Autowired
-    ScheduleService scheduleService;
+	@Autowired
+	ScheduleService scheduleService;
 
-    @RequestMapping(value="/schedule/{id}", method=RequestMethod.GET)
-    public Schedule get(@PathVariable("id") int id)
-    {
-        Schedule s = scheduleService.findById(id);
+	@RequestMapping(value = "/schedule/{id}", method = RequestMethod.GET)
+	public Schedule get(@PathVariable("id") int id)
+	{
+		Schedule s = scheduleService.findById(id);
 
-        for( TeamMember t : s.getTeamMemberList()) {
-            t.setScheduleList(null);
-        }
+		for (TeamMember t : s.getTeamMemberList())
+		{
+			t.setScheduleList(null);
+		}
 
-        return s;
-    }
+		return s;
+	}
 
-    @RequestMapping(value="/schedule", method=RequestMethod.POST)
-    public ResponseEntity<String> create(@RequestBody Schedule s)
-    {
-        scheduleService.save(s);
+	@RequestMapping(value = "/schedule", method = RequestMethod.POST)
+	public ResponseEntity<Integer> create(@RequestBody Schedule s)
+	{
+		scheduleService.save(s);
 
-        return new ResponseEntity<String>(HttpStatus.OK);
-    }
+		return new ResponseEntity<Integer>(s.getId(), HttpStatus.OK);
+	}
 
-    @RequestMapping(value="/schedule/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<String> update(@PathVariable("id") int id, @RequestBody Schedule s)
-    {
-        Schedule sold = scheduleService.findById(id);
+	@RequestMapping(value = "/schedules", method = RequestMethod.POST)
+	public ResponseEntity<List<Integer>> create(@RequestBody List<Schedule> schedules)
+	{
+		ArrayList<Integer> ids = new ArrayList<>(schedules.size());
+		for (Schedule s : schedules)
+		{
+			scheduleService.save(s);
+			ids.add(s.getId());
+		}
+		return new ResponseEntity<List<Integer>>(ids, HttpStatus.OK);
+	}
 
-        if(sold == null)
-            return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+	@RequestMapping(value = "/schedule/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<String> update(@PathVariable("id") int id, @RequestBody Schedule s)
+	{
+		Schedule sold = scheduleService.findById(id);
 
-        s.setId(id);
+		if (sold == null)
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 
-        s = scheduleService.update(s);
+		s.setId(id);
 
-        return new ResponseEntity<String>(HttpStatus.OK);
-    }
+		s = scheduleService.update(s);
 
-    @RequestMapping(value="/schedule/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<String> delete(@PathVariable("id") int id)
-    {
-        Schedule s = scheduleService.findById(id);
-        if (s == null)
-            return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
 
-        scheduleService.delete(s);
+	@RequestMapping(value = "/schedule/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> delete(@PathVariable("id") int id)
+	{
+		Schedule s = scheduleService.findById(id);
+		if (s == null)
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<String>(HttpStatus.OK);
-    }
+		scheduleService.delete(s);
+
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
 
 }
