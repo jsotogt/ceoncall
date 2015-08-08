@@ -4,7 +4,7 @@ Alerting Support
 This functionality notifies the developer(s) on-call about production alerts. Notification methods include SMS text
 messages via Twilio and email alerts via ceMail.
 
-Oncall functionality added to allow a query for current oncall members.
+It also adds support to view the developer(s) on-call now.
 
 Endpoints
 ---------
