@@ -23,6 +23,10 @@ public class Schedule {
     private Date startDate;
     private Date endDate;
 
+    @OneToMany
+    @JoinTable
+    private List<CaseNote> caseNoteList;
+
     public Schedule() {
 
     }
@@ -57,6 +61,14 @@ public class Schedule {
 
     public void setTeamMemberList(List<TeamMember> teamMemberList) {
         this.teamMemberList = teamMemberList;
+    }
+
+    public List<CaseNote> getCaseNoteList() {
+        return caseNoteList;
+    }
+
+    public void setCaseNoteList(List<CaseNote> caseNoteList) {
+        this.caseNoteList = caseNoteList;
     }
 
     public Date getStartDate() {
