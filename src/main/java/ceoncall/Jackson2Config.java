@@ -13,20 +13,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 @EnableTransactionManagement
-public class Jackson2Config {
+public class Jackson2Config
+{
 
-    @Bean
-    public ObjectMapper jacksonObjectMapper() {
+	@Bean
+	public ObjectMapper jacksonObjectMapper()
+	{
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd mm:hh:ss");
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.setDateFormat(df);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		objectMapper.setDateFormat(df);
 
-        return objectMapper;
+		return objectMapper;
 
-    }
+	}
 
 }
