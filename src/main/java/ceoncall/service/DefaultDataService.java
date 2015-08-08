@@ -46,6 +46,9 @@ public class DefaultDataService {
 
         TeamMember jorge = new TeamMember("Jimmy Wong", "M: +1 (407) 443-5990", "jimmy.wong@accesso.com");
         teamMemberService.save(jorge);
+
+        TeamMember mike = new TeamMember("Michael Garcia", "M: +1 (407) 330-8086", "michael.garcia@accesso.com");
+        teamMemberService.save(mike);
     }
 
     public void createDepartments() {
