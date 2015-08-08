@@ -1,0 +1,26 @@
+{
+  "department": {
+    "id": 1,
+    "name": "Development"
+  },
+  "team": {
+    "id": 1,
+    "name": "Backend"
+  },
+  "teamMemberList": [
+    {
+      "id": 1,
+      "name": "Jaime Soto",
+      "phone": "M: +1 (407) 330-8085",
+      "email": "jaime.soto@accesso.com"
+    },
+    {
+      "id": 4,
+      "name": "Michael Garcia",
+      "phone": "M: +1 (407) 330-8086",
+      "email": "michael.garcia@accesso.com"
+    }
+  ],
+  "startDate": "2015-08-03",
+  "endDate": "2015-08-09"
+}
