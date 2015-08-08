@@ -54,9 +54,10 @@ public class ScheduleService {
 
     public List<TeamMember> getOnCall() {
 
-        String jpql = new String("select m from TeamMember m");
+        String jpql = new String("select m from TeamMember m inner join m.scheduleList s where :date between s.startDate and s.endDate");
 
         TypedQuery<TeamMember> query = em.createQuery(jpql, TeamMember.class);
+        query.setParameter("date", new Date());
 
         return query.getResultList();
     }

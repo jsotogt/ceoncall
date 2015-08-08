@@ -20,7 +20,7 @@ public class AlertService {
     ScheduleService scheduleService;
 
     public void email(String alert) {
-        
+
         for(TeamMember t : scheduleService.getOnCall()) {
 
             String xml = String.format("<SERVICE request_type='SendEMail' from='ceoncall@accesso.com' to='%s' message='%s' subject='ceoncall alert' />", t.getEmail(), alert);
@@ -31,7 +31,15 @@ public class AlertService {
     }
 
     public List<TeamMember> oncall() {
-        return scheduleService.getOnCall();
+
+        List<TeamMember> result = scheduleService.getOnCall();
+
+        for (TeamMember m : result) {
+            m.setScheduleList(null);
+        }
+
+        return result;
+
     }
 
 }
