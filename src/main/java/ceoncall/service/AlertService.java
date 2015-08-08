@@ -1,8 +1,11 @@
 package ceoncall.service;
 
+import ceoncall.domain.TeamMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AlertService {
@@ -13,12 +16,22 @@ public class AlertService {
     @Autowired
     PostmanService postmanService;
 
+    @Autowired
+    ScheduleService scheduleService;
+
     public void email(String alert) {
+        
+        for(TeamMember t : scheduleService.getOnCall()) {
 
-        String xml = String.format("<SERVICE request_type='SendEMail' from='ceoncall@accesso.com' to='jsoto@accesso.com' message='%s' subject='ceoncall alert' />", alert);
+            String xml = String.format("<SERVICE request_type='SendEMail' from='ceoncall@accesso.com' to='%s' message='%s' subject='ceoncall alert' />", t.getEmail(), alert);
+            postmanService.send(cemailurl, xml);
 
-        postmanService.send(cemailurl, xml);
+        }
 
+    }
+
+    public List<TeamMember> oncall() {
+        return scheduleService.getOnCall();
     }
 
 }
