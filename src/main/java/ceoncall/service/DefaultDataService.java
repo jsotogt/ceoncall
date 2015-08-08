@@ -38,16 +38,16 @@ public class DefaultDataService {
     }
 
     public void createTeamMembers() {
-        TeamMember jaime = new TeamMember("Jaime Soto", "M: +1 (407) 330-8085", "jaime.soto@accesso.com");
+        TeamMember jaime = new TeamMember("Jaime Soto", "M: +17862810218", "jaime.soto@accesso.com");
         teamMemberService.save(jaime);
 
-        TeamMember jimmy = new TeamMember("Jorge Fernandez", "M: +1 (305) 546-4706", "jorge.fernandez@accesso.com");
+        TeamMember jimmy = new TeamMember("Jorge Fernandez", "M: +13055464706", "jorge.fernandez@accesso.com");
         teamMemberService.save(jimmy);
 
-        TeamMember jorge = new TeamMember("Jimmy Wong", "M: +1 (407) 443-5990", "jimmy.wong@accesso.com");
+        TeamMember jorge = new TeamMember("Jimmy Wong", "M: +13215129901", "jimmy.wong@accesso.com");
         teamMemberService.save(jorge);
 
-        TeamMember mike = new TeamMember("Michael Garcia", "M: +1 (407) 330-8086", "michael.garcia@accesso.com");
+        TeamMember mike = new TeamMember("Michael Garcia", "M: +13215129901", "michael.garcia@accesso.com");
         teamMemberService.save(mike);
     }
 

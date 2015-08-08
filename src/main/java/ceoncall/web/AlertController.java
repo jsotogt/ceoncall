@@ -28,7 +28,7 @@ public class AlertController {
 
     }
 
-    @RequestMapping(value="/alert", method= RequestMethod.GET)
+    @RequestMapping(value="/oncall", method= RequestMethod.GET)
     public ResponseEntity<List<TeamMember>> oncall() {
 
         return new ResponseEntity(alertService.oncall(), HttpStatus.OK);
