@@ -1,14 +1,14 @@
 package ceoncall.web;
 
-import ceoncall.domain.Department;
-import ceoncall.domain.Team;
-import ceoncall.service.DepartmentService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import ceoncall.domain.Department;
+import ceoncall.service.DepartmentService;
 
 @RestController
 public class DepartmentController {

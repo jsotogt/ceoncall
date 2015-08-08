@@ -1,13 +1,15 @@
 package ceoncall.service;
 
-import ceoncall.domain.Team;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import ceoncall.domain.Team;
 
 @Service
 @Transactional

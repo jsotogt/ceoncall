@@ -1,25 +1,17 @@
 package ceoncall.web;
 
-import ceoncall.domain.Department;
-import ceoncall.domain.Schedule;
-import ceoncall.domain.Team;
-import ceoncall.domain.TeamMember;
-import ceoncall.service.DepartmentService;
-import ceoncall.service.ScheduleService;
-import ceoncall.service.TeamMemberService;
-import ceoncall.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import ceoncall.domain.Schedule;
+import ceoncall.domain.TeamMember;
+import ceoncall.service.ScheduleService;
 
 @RestController
 public class ScheduleController {
