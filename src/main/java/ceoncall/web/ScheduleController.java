@@ -1,5 +1,8 @@
 package ceoncall.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +42,18 @@ public class ScheduleController
 		scheduleService.save(s);
 
 		return new ResponseEntity<Integer>(s.getId(), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/schedules", method = RequestMethod.POST)
+	public ResponseEntity<List<Integer>> create(@RequestBody List<Schedule> schedules)
+	{
+		ArrayList<Integer> ids = new ArrayList<>(schedules.size());
+		for (Schedule s : schedules)
+		{
+			scheduleService.save(s);
+			ids.add(s.getId());
+		}
+		return new ResponseEntity<List<Integer>>(ids, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/schedule/{id}", method = RequestMethod.PUT)
